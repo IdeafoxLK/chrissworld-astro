@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "templateType": "minimal-starter",
+  "theme": "modern",
+  "styleStrategy": "tailwind"
+}

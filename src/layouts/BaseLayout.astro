@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { 
+    title, 
+    description = 'A site built with Astro',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        {/* Tailwind CDN for dev: enables runtime class scanning so dynamically added classes work (e.g. class editor). */}
+        {import.meta.env.DEV && (
+            <script is:inline src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        )}
+    </head>
+    <body class="antialiased min-h-screen">
+        <slot />
+        
+        {/* Development-only: PhantomWP iframe scripts (inspector, class editor, navigation) */}
+        {/* Served by .phantomwp/ide/dev-tools.mjs Vite middleware from .phantomwp/ide/iframe-scripts.js */}
+        {import.meta.env.DEV && (
+            <script is:inline src="/_phantom/inspector.js"></script>
+        )}
+    </body>
+</html>

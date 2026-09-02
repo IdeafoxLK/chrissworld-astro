@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+const { frontmatter = {} } = Astro.props;
+
+// Get values from frontmatter with defaults
+const title = frontmatter.title || 'Untitled Page';
+const description = frontmatter.description || '';
+---
+
+<BaseLayout title={title} description={description}>
+    <Header />
+    <main id="main-content" class="min-h-screen">
+        <div class="container mx-auto px-4 py-12 max-w-4xl">
+            <article class="prose prose-lg max-w-none">
+                <slot />
+            </article>
+        </div>
+    </main>
+    <Footer />
+</BaseLayout>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import Section from '@/components/Section.astro';
+---
+
+<BaseLayout title="Welcome">
+    <Header />
+    
+    <main id="main-content" class="min-h-screen">
+        <Section>
+            <div class="text-center py-12">
+                <h1 class="text-4xl font-bold text-content mb-4">
+                    Your site is ready
+                </h1>
+                <p class="text-lg text-content-light max-w-xl mx-auto">
+                    This page is intentionally simple. Start building by editing 
+                    <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">src/pages/index.astro</code>
+                </p>
+            </div>
+        </Section>
+
+        <Section title="Pages are files">
+            <p class="text-content-light leading-relaxed">
+                Create a new file in the <span class="px-1.5 py-0.5 bg-purple-400/10 text-purple-400 rounded font-semibold">pages</span> directory or 
+                click <span class="px-1.5 py-0.5 bg-surface-alt text-content rounded font-semibold">Add Page</span> at the top of the file manager, and 
+                it becomes a route. For example, <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">about.astro</code> becomes 
+                <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">/about</code>.
+            </p>
+        </Section>
+
+        <Section title="Sections are components">
+            <p class="text-content-light leading-relaxed">
+                The <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">&lt;Section&gt;</code> component 
+                you see here provides consistent spacing and layout. Create your own components in the 
+                <span class="px-1.5 py-0.5 bg-green-400/10 text-green-400 rounded font-semibold">components</span> directory and import them anywhere.
+            </p>
+        </Section>
+
+        <Section title="Start static, add WordPress later">
+            <p class="text-content-light leading-relaxed">
+                Build your pages with plain Astro first. When you are ready to pull content from WordPress, 
+                connect your site and the content will flow in. No need to set everything up at once.
+            </p>
+        </Section>
+    </main>
+    
+    <Footer />
+</BaseLayout>

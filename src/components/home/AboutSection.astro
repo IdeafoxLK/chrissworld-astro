@@ -1,0 +1,78 @@
+---
+/**
+ * About + why-choose-us, split over the brand photograph.
+ */
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import Check from '@lucide/astro/icons/check';
+
+const pillars = [
+    'Effective warehouse and inventory management across multiple verticals',
+    'Superior service standards backed by deep industry understanding',
+    'Optimal solutions customised to your specialisation and budget',
+];
+---
+
+<section id="about" class="bg-surface-alt py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+            <div class="relative">
+                <div class="overflow-hidden rounded-3xl shadow-xl">
+                    <img
+                        src="/media/cms/why-choose-us-scaled.webp"
+                        alt="Chrissworld warehouse and cargo handling operations"
+                        width="2560"
+                        height="1707"
+                        loading="lazy"
+                        class="h-full w-full object-cover"
+                    />
+                </div>
+                <div
+                    class="mt-6 rounded-2xl bg-navy p-7 sm:absolute sm:-right-6 sm:-bottom-10 sm:mt-0 sm:max-w-xs sm:p-8"
+                >
+                    <p class="text-xs font-semibold tracking-widest text-primary uppercase">
+                        Why choose us
+                    </p>
+                    <p class="mt-3 text-sm leading-relaxed text-white/75">
+                        The best, most reliable and economical solution, taking care of your
+                        requirements from A to Z.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:pl-4">
+                <p class="text-xs font-semibold tracking-widest text-primary uppercase">About us</p>
+                <h2 class="mt-3 text-3xl font-bold text-content sm:text-4xl">
+                    A board that has spent three decades moving cargo
+                </h2>
+                <p class="mt-6 leading-relaxed text-content-light">
+                    Chrissworld is spearheaded by a dynamic and well-experienced Board of Executive
+                    Directors, each counting between 25 and 35 years in the logistics industry.
+                    Drawing on that expertise, the organisation specialises in two core areas:
+                    effective warehouse management and inventory management, servicing clients across
+                    multiple verticals and industries.
+                </p>
+
+                <ul class="mt-8 space-y-4">
+                    {
+                        pillars.map((pillar) => (
+                            <li class="flex items-start gap-3">
+                                <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                    <Check class="h-3.5 w-3.5" />
+                                </span>
+                                <span class="text-sm leading-relaxed text-content-light">{pillar}</span>
+                            </li>
+                        ))
+                    }
+                </ul>
+
+                <a
+                    href="/about"
+                    class="group mt-10 inline-flex cursor-pointer items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold text-white no-underline transition-colors duration-200 hover:bg-secondary"
+                >
+                    Learn more about us
+                    <ArrowRight class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

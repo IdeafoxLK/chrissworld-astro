@@ -1,19 +1,154 @@
 ---
-import MainMenu from './menus/MainMenu.astro';
-import BrandLogo from './BrandLogo.astro';
+/**
+ * Site header -- navy utility strip over a sticky white nav bar.
+ *
+ * The nav is defined here rather than through <MainMenu />: the generated
+ * menu component auto-discovers pages from src/pages, which cannot express
+ * the Chrissworld information architecture while those routes are still
+ * being built.
+ */
+import Phone from '@lucide/astro/icons/phone';
+import Mail from '@lucide/astro/icons/mail';
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import { isActivePath } from '@/lib/navigation';
 
 interface Props {
     class?: string;
 }
 
 const { class: className } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { label: 'Services', url: '/services' },
+    { label: 'About', url: '/about' },
+    { label: 'Projects', url: '/projects' },
+    { label: 'Our Facilities', url: '/our-facilities' },
+    { label: 'News', url: '/articles-and-news' },
+    { label: 'Careers', url: '/careers' },
+];
 ---
 
-<header class:list={["px-4 py-4", className]}>
-    <div class="max-w-5xl mx-auto flex items-center justify-between">
-        <BrandLogo siteName="My Site" class="font-semibold text-lg text-content no-underline cursor-pointer" />
-        
-        <!-- Menu Area (Right Aligned) -->
-        <MainMenu />
+<header class:list={['relative z-40', className]}>
+    <!-- Utility strip -->
+    <div class="hidden bg-navy lg:block">
+        <div
+            class="mx-auto flex max-w-7xl items-center justify-between px-6 py-2.5 text-xs text-white/70 lg:px-8"
+        >
+            <p class="tracking-widest uppercase">Unique Solutions &mdash; Winning Partnerships</p>
+            <div class="flex items-center gap-6">
+                <a
+                    href="tel:+94770023588"
+                    class="inline-flex cursor-pointer items-center gap-1.5 no-underline transition-colors duration-200 hover:text-primary"
+                >
+                    <Phone class="h-3.5 w-3.5" />
+                    +94 77 002 3588
+                </a>
+                <a
+                    href="mailto:info@chrissworld.com"
+                    class="inline-flex cursor-pointer items-center gap-1.5 no-underline transition-colors duration-200 hover:text-primary"
+                >
+                    <Mail class="h-3.5 w-3.5" />
+                    info@chrissworld.com
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main bar -->
+    <div class="sticky top-0 z-40 border-b border-outline bg-surface/95 backdrop-blur-md">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-8">
+            <a href="/" class="shrink-0 cursor-pointer no-underline" aria-label="Chrissworld home">
+                <img
+                    src="/media/cms/logo.svg"
+                    alt="Chrissworld"
+                    width="176"
+                    height="50"
+                    class="h-10 w-auto"
+                />
+            </a>
+
+            <nav class="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+                {
+                    navItems.map((item) => (
+                        <a
+                            href={item.url}
+                            class:list={[
+                                'cursor-pointer rounded-lg px-3.5 py-2 text-sm font-medium no-underline transition-colors duration-200',
+                                isActivePath(currentPath, item.url)
+                                    ? 'text-primary'
+                                    : 'text-content-light hover:bg-surface-hover hover:text-content',
+                            ]}
+                        >
+                            {item.label}
+                        </a>
+                    ))
+                }
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a
+                    href="/contact-us"
+                    class="group hidden cursor-pointer items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary no-underline transition-colors duration-200 hover:bg-primary-dark sm:inline-flex"
+                >
+                    Contact us
+                    <ArrowRight class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </a>
+
+                <button
+                    type="button"
+                    id="site-nav-toggle"
+                    class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-content transition-colors duration-200 hover:bg-surface-hover lg:hidden"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="site-nav-mobile"
+                >
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile drawer -->
+        <div id="site-nav-mobile" class="hidden border-t border-outline bg-surface lg:hidden">
+            <nav class="mx-auto max-w-7xl space-y-1 px-6 py-4" aria-label="Mobile navigation">
+                {
+                    navItems.map((item) => (
+                        <a
+                            href={item.url}
+                            class:list={[
+                                'block cursor-pointer rounded-lg px-4 py-3 text-base font-medium no-underline transition-colors duration-200',
+                                isActivePath(currentPath, item.url)
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'text-content-light hover:bg-surface-hover hover:text-content',
+                            ]}
+                        >
+                            {item.label}
+                        </a>
+                    ))
+                }
+                <a
+                    href="/contact-us"
+                    class="mt-2 block cursor-pointer rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-on-primary no-underline"
+                >
+                    Contact us
+                </a>
+            </nav>
+        </div>
     </div>
 </header>
+
+<script>
+    const toggle = document.getElementById('site-nav-toggle');
+    const drawer = document.getElementById('site-nav-mobile');
+
+    toggle?.addEventListener('click', () => {
+        const isOpen = drawer?.classList.toggle('hidden') === false;
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+</script>

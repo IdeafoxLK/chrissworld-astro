@@ -1,0 +1,64 @@
+---
+/**
+ * Facility strip. The `facility` post type only exposes title + featured
+ * image over REST (address/size fields live in ACF, which is not published
+ * to the API), so these stay as image-and-name tiles.
+ */
+import MapPin from '@lucide/astro/icons/map-pin';
+import ArrowUpRight from '@lucide/astro/icons/arrow-up-right';
+import type { ContentCard } from '@/lib/functions';
+
+interface Props {
+    facilities: ContentCard[];
+}
+
+const { facilities } = Astro.props;
+---
+
+{
+    facilities.length > 0 && (
+        <section id="facilities" class="bg-surface py-20 sm:py-28">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                    <div class="max-w-2xl">
+                        <p class="text-xs font-semibold tracking-widest text-primary uppercase">
+                            Our footprint
+                        </p>
+                        <h2 class="mt-3 text-3xl font-bold text-content sm:text-4xl">
+                            Warehousing across the Colombo corridor
+                        </h2>
+                    </div>
+                    <a
+                        href="/our-facilities"
+                        class="inline-flex cursor-pointer items-center gap-2 self-start text-sm font-semibold text-secondary no-underline transition-colors duration-200 hover:text-primary lg:self-auto"
+                    >
+                        All facilities
+                        <ArrowUpRight class="h-4 w-4" />
+                    </a>
+                </div>
+
+                <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {facilities.map((facility) => (
+                        <div class="group relative h-52 overflow-hidden rounded-2xl bg-navy">
+                            {facility.image && (
+                                <img
+                                    src={facility.image}
+                                    alt={facility.title}
+                                    width="1024"
+                                    height="576"
+                                    loading="lazy"
+                                    class="h-full w-full object-cover opacity-70 transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
+                                />
+                            )}
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
+                            <div class="absolute inset-x-0 bottom-0 flex items-center gap-2 p-5">
+                                <MapPin class="h-4 w-4 shrink-0 text-primary" />
+                                <span class="text-base font-semibold text-white">{facility.title}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )
+}

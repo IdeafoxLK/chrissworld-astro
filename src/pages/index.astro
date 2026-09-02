@@ -1,50 +1,48 @@
 ---
+/**
+ * Chrissworld PLC -- home page.
+ *
+ * Services and news render from live WordPress data. Hero, about and
+ * testimonial copy is inline because the WordPress home page is built in
+ * Bricks (empty `content.rendered`) and the review/facility detail fields
+ * live in ACF groups that are not published to the REST API yet.
+ */
+export const prerender = true;
+
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import Section from '@/components/Section.astro';
+import Hero from '@/components/home/Hero.astro';
+import ServicesSection from '@/components/home/ServicesSection.astro';
+import AboutSection from '@/components/home/AboutSection.astro';
+import FacilitiesSection from '@/components/home/FacilitiesSection.astro';
+import TestimonialsSection from '@/components/home/TestimonialsSection.astro';
+import CtaSection from '@/components/home/CtaSection.astro';
+import InsightsSection from '@/components/home/InsightsSection.astro';
+import { getServices, getLatestNews, getFacilities } from '@/lib/functions';
+
+const [services, posts, facilities] = await Promise.all([
+    getServices(6),
+    getLatestNews(3),
+    getFacilities(6),
+]);
 ---
 
-<BaseLayout title="Welcome">
+<BaseLayout
+    title="Chrissworld | Unique Solutions, Winning Partnerships"
+    description="Chrissworld PLC delivers freight forwarding, warehousing, inland transportation and project cargo handling across Sri Lanka. One partner, from A to Z."
+>
     <Header />
-    
-    <main id="main-content" class="min-h-screen">
-        <Section>
-            <div class="text-center py-12">
-                <h1 class="text-4xl font-bold text-content mb-4">
-                    Your site is ready
-                </h1>
-                <p class="text-lg text-content-light max-w-xl mx-auto">
-                    This page is intentionally simple. Start building by editing 
-                    <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">src/pages/index.astro</code>
-                </p>
-            </div>
-        </Section>
 
-        <Section title="Pages are files">
-            <p class="text-content-light leading-relaxed">
-                Create a new file in the <span class="px-1.5 py-0.5 bg-purple-400/10 text-purple-400 rounded font-semibold">pages</span> directory or 
-                click <span class="px-1.5 py-0.5 bg-surface-alt text-content rounded font-semibold">Add Page</span> at the top of the file manager, and 
-                it becomes a route. For example, <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">about.astro</code> becomes 
-                <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">/about</code>.
-            </p>
-        </Section>
-
-        <Section title="Sections are components">
-            <p class="text-content-light leading-relaxed">
-                The <code class="px-1.5 py-0.5 bg-surface-alt rounded text-sm font-mono">&lt;Section&gt;</code> component 
-                you see here provides consistent spacing and layout. Create your own components in the 
-                <span class="px-1.5 py-0.5 bg-green-400/10 text-green-400 rounded font-semibold">components</span> directory and import them anywhere.
-            </p>
-        </Section>
-
-        <Section title="Start static, add WordPress later">
-            <p class="text-content-light leading-relaxed">
-                Build your pages with plain Astro first. When you are ready to pull content from WordPress, 
-                connect your site and the content will flow in. No need to set everything up at once.
-            </p>
-        </Section>
+    <main id="main-content">
+        <Hero serviceCount={services.length} facilityCount={facilities.length} />
+        <ServicesSection services={services} />
+        <AboutSection />
+        <FacilitiesSection facilities={facilities} />
+        <TestimonialsSection />
+        <CtaSection />
+        <InsightsSection posts={posts} />
     </main>
-    
+
     <Footer />
 </BaseLayout>

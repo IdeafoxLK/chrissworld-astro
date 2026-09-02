@@ -1,15 +1,125 @@
 ---
+/**
+ * Site footer -- navy, three link columns plus contact details.
+ */
+import MapPin from '@lucide/astro/icons/map-pin';
+import Phone from '@lucide/astro/icons/phone';
+import Mail from '@lucide/astro/icons/mail';
+
 interface Props {
     class?: string;
 }
 
 const { class: className } = Astro.props;
+const year = new Date().getFullYear();
+
+const quickLinks = [
+    { label: 'About Us', url: '/about' },
+    { label: 'Services', url: '/services' },
+    { label: 'Our Facilities', url: '/our-facilities' },
+    { label: 'Projects', url: '/projects' },
+    { label: 'Careers', url: '/careers' },
+    { label: 'Contact Us', url: '/contact-us' },
+];
+
+const serviceLinks = [
+    { label: 'Freight Forwarding', url: '/services/freight-forwarding' },
+    { label: 'Warehousing', url: '/services/warehousing' },
+    { label: 'Inland Transportation', url: '/services/inland-transportation' },
+    { label: 'Project Cargo Handling', url: '/services/project-cargo' },
+    { label: 'Value Added Services', url: '/services/value-added-services-vas' },
+    { label: 'Consultancy', url: '/services/consultancy' },
+];
 ---
 
-<footer class:list={["px-4 py-8 border-t border-outline-light", className]}>
-    <div class="max-w-5xl mx-auto text-center">
-        <p class="text-sm text-content-lighter">
-            Built with PhantomWP
-        </p>
+<footer class:list={['bg-navy', className]}>
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-4">
+            <div class="lg:col-span-1">
+                <img
+                    src="/media/cms/logo-ft.webp"
+                    alt="Chrissworld"
+                    width="244"
+                    height="66"
+                    loading="lazy"
+                    class="h-11 w-auto"
+                />
+                <p class="mt-6 text-sm leading-relaxed text-white/60">
+                    Unique solutions under one roof to create winning partnerships with flexibility,
+                    efficiency and value for money.
+                </p>
+            </div>
+
+            <div>
+                <h2 class="text-xs font-semibold tracking-widest text-primary uppercase">Quick links</h2>
+                <ul class="mt-5 space-y-3">
+                    {
+                        quickLinks.map((link) => (
+                            <li>
+                                <a
+                                    href={link.url}
+                                    class="cursor-pointer text-sm text-white/65 no-underline transition-colors duration-200 hover:text-white"
+                                >
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xs font-semibold tracking-widest text-primary uppercase">Our services</h2>
+                <ul class="mt-5 space-y-3">
+                    {
+                        serviceLinks.map((link) => (
+                            <li>
+                                <a
+                                    href={link.url}
+                                    class="cursor-pointer text-sm text-white/65 no-underline transition-colors duration-200 hover:text-white"
+                                >
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xs font-semibold tracking-widest text-primary uppercase">Contact us</h2>
+                <ul class="mt-5 space-y-4 text-sm text-white/65">
+                    <li class="flex items-start gap-3">
+                        <MapPin class="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        <span>199/29, Obeysekara Crescent,<br />Rajagiriya, Sri Lanka.</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <Phone class="h-4 w-4 shrink-0 text-primary" />
+                        <a
+                            href="tel:+94770023588"
+                            class="cursor-pointer no-underline transition-colors duration-200 hover:text-white"
+                        >
+                            +94 77 002 3588
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <Mail class="h-4 w-4 shrink-0 text-primary" />
+                        <a
+                            href="mailto:info@chrissworld.com"
+                            class="cursor-pointer no-underline transition-colors duration-200 hover:text-white"
+                        >
+                            info@chrissworld.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="mt-14 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between"
+        >
+            <p>Copyright &copy; {year} Chrissworld</p>
+            <p>Site by IDEAFOX</p>
+        </div>
     </div>
 </footer>
